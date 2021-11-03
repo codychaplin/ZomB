@@ -2,31 +2,43 @@
 
 public class Player : MonoBehaviour
 {
+    #region Singleton
+    public static Player instance;
+
+    void Awake()
+    {
+        instance = this;
+    }
+    #endregion
+
     [Header("References")]
-    public new Camera camera; // references player main camera
+    public new Camera camera; // references main camera
     CharacterController controller; // references player's characterController
-    public LayerMask excludeMask; // ground mask
+    public LayerMask groundMask; // ground mask
+    public Transform weaponParent; // weapon slot
 
     [Header("Movement")]
-    public float playerSpeed = 5f; // ground speed
-    public float movementSharpness = 15f; // movement sharpness
+    public float playerSpeed = 5f;
+    public float movementSharpness = 15f;
 
     [Header("Camera")]
     public float zoomSpeed = 4f;
     public float minZoom = 2f;
     public float maxZoom = 12f;
-    public float pitch = 1.25f;
     public float rotationSpeed = 1f;
     public Vector3 offset;
+    float pitch = 1.25f;
     float zoom = 3f;
     float yaw = 100f;
 
     Vector3 characterVelocity;
+    Inventory inventory;
 
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        inventory = Inventory.instance;
     }
 
     // Update is called once per frame
@@ -63,10 +75,12 @@ public class Player : MonoBehaviour
 
     void CharacterMovement()
     {
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition); // gets ray based on mouse position on screen
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 1000, excludeMask)) // if raycast is successful
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000, groundMask)) // if raycast is successful
         {
+            // targetDirection gets the direction towards target, newDirection is used so rotation isn't instant,
+            // transform.rotation applies rotation
             Vector3 targetDirection = hit.point - transform.position;
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, rotationSpeed * Time.deltaTime, 0f);
             transform.rotation = Quaternion.LookRotation(new Vector3(newDirection.x, 0.0001f, newDirection.z), Vector3.up);
@@ -74,7 +88,7 @@ public class Player : MonoBehaviour
 
         Vector3 move = GetMoveInput(); // WASD input
         Vector3 targetVelocity = move * playerSpeed; // gets users position and sets velocity
-        characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, movementSharpness * Time.deltaTime); // velocity
+        characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, movementSharpness * Time.deltaTime); // velocity over time
         controller.Move(characterVelocity * Time.deltaTime); // move character based on forces
     }
 }
