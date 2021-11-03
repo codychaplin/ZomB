@@ -1,47 +1,25 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "Weapon", menuName = "Weapon")]
-public class Weapon : ScriptableObject
+public class Weapon : MonoBehaviour
 {
-    public GameObject weaponPrefab;
+    public Transform muzzle;
     public string weaponName;
     public int ammoCapacity;
     public int damage;
     int currentAmmo;
 
-    public Weapon() { } // default constructor
-
-    /*public Weapon(Weapon w) // copy constructor
+    public void InitializeWeapon()
     {
-        weaponPrefab = w.weaponPrefab;
-        weaponName = w.weaponName;
-        ammoCapacity = w.ammoCapacity;
-        damage = w.damage;
-        currentAmmo = w.currentAmmo;
-        InitializeWeapon();
-    }*/
-
-    public void Copy(Weapon w)
-    {
-        weaponPrefab = w.weaponPrefab;
-        weaponName = w.weaponName;
-        ammoCapacity = w.ammoCapacity;
-        damage = w.damage;
-        currentAmmo = w.currentAmmo;
-        InitializeWeapon();
-    }
-
-    void InitializeWeapon()
-    {
-        currentAmmo = ammoCapacity;
+        currentAmmo = ammoCapacity; // ammo is set to max capacity
     }
 
     public void Shoot()
     {
-        if (currentAmmo > 0)
+        if (currentAmmo > 0) // if has ammo
         {
             Debug.Log(weaponName + ": Bang");
-            currentAmmo--;
+            
+            currentAmmo--; // decrement ammo
         }
         else
             Debug.Log(weaponName + ": Out of ammo");
@@ -49,6 +27,6 @@ public class Weapon : ScriptableObject
 
     public void ShowWeapon(bool show)
     {
-        weaponPrefab.SetActive(show);
+        gameObject.SetActive(show); // enable/disable gameObject
     }
 }

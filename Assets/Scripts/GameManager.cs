@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public List<Weapon> weapons;
+    public List<Weapon> weapons; // list of weapons in game
 
     // Start is called before the first frame update
     void Start()

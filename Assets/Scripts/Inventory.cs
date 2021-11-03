@@ -27,24 +27,22 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         player = Player.instance;
-        
-        Weapon pistol = ScriptableObject.CreateInstance<Weapon>();
-        pistol.Copy(GameManager.instance.weapons[0]);
-        AddWeapon(pistol, 0); // adds pistol to inventory
-        SwitchWeapon(0);
+
+        AddWeapon(GameManager.instance.weapons[0], 0); // adds pistol to inventory
+        SwitchWeapon(0); // switch to weapon in first index
     }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            SwitchWeapon(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2) && weaponsUnlocked[1])
-            SwitchWeapon(1);
-        if (Input.GetKeyDown(KeyCode.Alpha3) && weaponsUnlocked[2])
-            SwitchWeapon(2);
-        if (Input.GetKeyDown(KeyCode.Alpha4) && weaponsUnlocked[3])
-            SwitchWeapon(3);
+            SwitchWeapon(0); // weapon slot 0
+        if (Input.GetKeyDown(KeyCode.Alpha2) && weaponsUnlocked[1]) // if shotgun is unlocked
+            SwitchWeapon(1); // weapon slot 1
+        if (Input.GetKeyDown(KeyCode.Alpha3) && weaponsUnlocked[2]) // if M16 is unlocked
+            SwitchWeapon(2); // weapon slot 2
+        if (Input.GetKeyDown(KeyCode.Alpha4) && weaponsUnlocked[3]) // if RPG is unlocked
+            SwitchWeapon(3); // weapon slot 3
 
         if (Input.GetButtonDown("Fire"))
             inventory[currentWeaponIndex].Shoot();
@@ -52,19 +50,20 @@ public class Inventory : MonoBehaviour
 
     void AddWeapon(Weapon weapon, int index)
     {
-        weaponsUnlocked[index] = true;
-        inventory[index] = weapon;
-        weapon.weaponPrefab = Instantiate(weapon.weaponPrefab, player.weaponParent);
+        weaponsUnlocked[index] = true; // unlocks weapon at index
+        inventory[index] = weapon; // adds weapon to inventory
+        weapon.InitializeWeapon(); // initializes weapon properties
+        Instantiate(weapon.gameObject, player.weaponParent); // instantiates gun prefab
     }
 
     void SwitchWeapon(int index)
     {
         if (currentWeapon)
-            currentWeapon.ShowWeapon(false);
+            currentWeapon.ShowWeapon(false); // disables current weapon
 
-        currentWeaponIndex = index;
-        currentWeapon = inventory[currentWeaponIndex];
-        currentWeapon.ShowWeapon(true);
+        currentWeaponIndex = index; // updates current weapon index
+        currentWeapon = inventory[currentWeaponIndex]; // updates current weapon
+        currentWeapon.ShowWeapon(true); // enables current weapon
 
         /*if (onItemChanged != null)
             onItemChanged.Invoke(); // trigger event*/
