@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public List<Weapon> weapons; // list of weapons in game
+    public int killcount { get; set; }
 
     // Start is called before the first frame update
     void Start()

@@ -3,19 +3,12 @@
 public class Health : MonoBehaviour
 {
     public bool isPlayer = false;
-    public int maxHealth = 100;
+    public int maxHealth;
     int currentHealth;
 
-    // Start is called before the first frame update
-    void Start()
+    public void InitializeHealth()
     {
         currentHealth = maxHealth;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void Heal(int amount)
@@ -38,7 +31,7 @@ public class Health : MonoBehaviour
     void Die()
     {
         if (!isPlayer)
-            GameObject.Destroy(this);
+            GameObject.Destroy(this.gameObject); // deletes enemy from scene
         else
             Debug.Log("You died");
     }

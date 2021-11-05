@@ -44,16 +44,17 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4) && weaponsUnlocked[3]) // if RPG is unlocked
             SwitchWeapon(3); // weapon slot 3
 
-        if (Input.GetButtonDown("Fire"))
-            inventory[currentWeaponIndex].Shoot();
+        if (Input.GetKeyDown(KeyCode.R))
+            currentWeapon.Reload();
     }
 
     void AddWeapon(Weapon weapon, int index)
     {
+        Weapon newWeapon = Instantiate(weapon, player.weaponParent); // instantiates gun prefab
+        newWeapon.sourcePrefab = weapon.gameObject;
         weaponsUnlocked[index] = true; // unlocks weapon at index
-        inventory[index] = weapon; // adds weapon to inventory
-        weapon.InitializeWeapon(); // initializes weapon properties
-        Instantiate(weapon.gameObject, player.weaponParent); // instantiates gun prefab
+        inventory[index] = newWeapon; // adds weapon to inventory
+        newWeapon.InitializeWeapon(); // initializes weapon properties   
     }
 
     void SwitchWeapon(int index)

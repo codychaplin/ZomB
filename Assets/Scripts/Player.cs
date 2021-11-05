@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Health))]
 public class Player : MonoBehaviour
 {
     #region Singleton
@@ -33,12 +34,15 @@ public class Player : MonoBehaviour
 
     Vector3 characterVelocity;
     Inventory inventory;
+    Health health;
 
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();
         inventory = Inventory.instance;
+        controller = GetComponent<CharacterController>();
+        health = GetComponent<Health>();
+        health.InitializeHealth();
     }
 
     // Update is called once per frame
@@ -46,11 +50,12 @@ public class Player : MonoBehaviour
     {
         CharacterMovement();
         CameraRotate();
-    }
-
-    void LateUpdate()
-    {
         CameraMovement();
+
+        if (Input.GetButtonDown("Fire"))
+        {
+            inventory.inventory[inventory.currentWeaponIndex].Shoot();
+        }
     }
 
     void CameraRotate()
@@ -90,5 +95,6 @@ public class Player : MonoBehaviour
         Vector3 targetVelocity = move * playerSpeed; // gets users position and sets velocity
         characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, movementSharpness * Time.deltaTime); // velocity over time
         controller.Move(characterVelocity * Time.deltaTime); // move character based on forces
+        transform.position = new Vector3(transform.position.x, 0.01f, transform.position.z);
     }
 }

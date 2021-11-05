@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(Health))]
 public class Enemy : MonoBehaviour
 {
-
     Transform target;
     NavMeshAgent agent;
+    Health health;
 
     // Start is called before the first frame update
     void Start()
     {
         target = Player.instance.transform; // sets target to player
         agent = GetComponent<NavMeshAgent>();
+        health = GetComponent<Health>();
+        health.InitializeHealth();
     }
 
     // Update is called once per frame
