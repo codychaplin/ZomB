@@ -6,6 +6,8 @@ public class Health : MonoBehaviour
     public int maxHealth;
     int currentHealth;
 
+    public event System.Action<int, int> OnHealthChanged;
+
     public void InitializeHealth()
     {
         currentHealth = maxHealth;
@@ -21,6 +23,10 @@ public class Health : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
+
+        if (OnHealthChanged != null)
+            OnHealthChanged(maxHealth, currentHealth);
+
         if (currentHealth <= 0)
         {
             currentHealth = 0;

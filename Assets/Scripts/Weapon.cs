@@ -23,17 +23,12 @@ public class Weapon : MonoBehaviour
             int mask = 1 << LayerMask.NameToLayer("Enemy"); // layerMask of enemy
             if (Physics.Raycast(ray, out RaycastHit hit, 1000f, mask))
             {
-                Debug.Log(hit.collider.name);
-                Debug.DrawRay(muzzle.position, muzzle.forward * hit.distance, Color.red, 1f);
-
                 Health enemyHealth = hit.collider.GetComponent<Health>();
                 if (enemyHealth != null)
-                {
                     enemyHealth.TakeDamage(damage);
-                }
             }
-                //Debug.Log(weaponName + ": Bang");
             
+            //Debug.Log(weaponName + ": Bang");
             currentAmmo--; // decrement ammo
         }
         else
