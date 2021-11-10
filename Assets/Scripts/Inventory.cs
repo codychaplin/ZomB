@@ -29,7 +29,9 @@ public class Inventory : MonoBehaviour
         player = Player.instance;
 
         AddWeapon(GameManager.instance.weapons[0], 0); // adds pistol to inventory
-        SwitchWeapon(0); // switch to weapon in first index
+
+        if (inventory[0] != null)
+            SwitchWeapon(0); // switch to weapon in first index
     }
 
     // Update is called once per frame
@@ -48,18 +50,20 @@ public class Inventory : MonoBehaviour
             currentWeapon.Reload();
     }
 
-    void AddWeapon(Weapon weapon, int index)
+    public void AddWeapon(Weapon weapon, int index)
     {
+        Debug.Log("add weapon");
         Weapon newWeapon = Instantiate(weapon, player.weaponParent); // instantiates gun prefab
         newWeapon.sourcePrefab = weapon.gameObject;
         weaponsUnlocked[index] = true; // unlocks weapon at index
         inventory[index] = newWeapon; // adds weapon to inventory
-        newWeapon.InitializeWeapon(); // initializes weapon properties   
+        newWeapon.InitializeWeapon(); // initializes weapon properties
+        newWeapon.ShowWeapon(false);
     }
 
     void SwitchWeapon(int index)
     {
-        if (currentWeapon)
+        if (currentWeapon != null)
             currentWeapon.ShowWeapon(false); // disables current weapon
 
         currentWeaponIndex = index; // updates current weapon index

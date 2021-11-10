@@ -6,38 +6,45 @@ public class Health : MonoBehaviour
     public int maxHealth;
     int currentHealth;
 
-    public event System.Action<int, int> OnHealthChanged;
+    public event System.Action<int, int> OnHealthChanged; // event
+    public delegate void OnKillkDelegate(); // killcount deletegate
+    public static OnKillkDelegate OnKill; // static accessor
 
     public void InitializeHealth()
     {
-        currentHealth = maxHealth;
+        currentHealth = maxHealth; // sets health to full
     }
 
     public void Heal(int amount)
     {
-        currentHealth += amount;
+        currentHealth += amount; // add health
         if (currentHealth > maxHealth)
-            currentHealth = maxHealth;
+            currentHealth = maxHealth; // clamp to max health
+
+        if (OnHealthChanged != null) // trigger event
+            OnHealthChanged(maxHealth, currentHealth);
     }
 
     public void TakeDamage(int amount)
     {
-        currentHealth -= amount;
-
-        if (OnHealthChanged != null)
-            OnHealthChanged(maxHealth, currentHealth);
+        currentHealth -= amount; // reduce health
 
         if (currentHealth <= 0)
-        {
-            currentHealth = 0;
             Die();
-        }
+
+        if (OnHealthChanged != null) // trigger event
+            OnHealthChanged(maxHealth, currentHealth);
     }
 
     void Die()
     {
-        if (!isPlayer)
-            GameObject.Destroy(this.gameObject); // deletes enemy from scene
+        if (!isPlayer) // deletes enemy from scene
+        {
+            if (OnKill != null) // trigger delegate
+                OnKill();
+
+            GameObject.Destroy(this.gameObject); // destroy gameobject
+        }
         else
             Debug.Log("You died");
     }

@@ -37,6 +37,7 @@ public class Weapon : MonoBehaviour
 
     public void Reload()
     {
+        Debug.Log("Reloading");
         currentAmmo = ammoCapacity;
     }
 

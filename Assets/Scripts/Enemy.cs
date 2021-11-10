@@ -15,7 +15,8 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = Player.instance; // sets target to player
+        // references
+        player = Player.instance;
         playerHealth = player.GetComponent<Health>();
         agent = GetComponent<NavMeshAgent>();
         health = GetComponent<Health>();
@@ -44,13 +45,13 @@ public class Enemy : MonoBehaviour
 
     void AttackTarget()
     {
-        if (Time.time >= attackDelay)
+        if (Time.time >= attackDelay) // if can attack
         {
             Debug.Log("attacking");
             if (playerHealth != null)
-                playerHealth.TakeDamage(attackDamage);
+                playerHealth.TakeDamage(attackDamage); // deal damage
 
-            attackDelay = Time.time + attackSpeed;
+            attackDelay = Time.time + attackSpeed; // set next attack time
         }
     }
 }

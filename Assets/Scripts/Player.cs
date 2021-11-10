@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // references
         inventory = Inventory.instance;
         controller = GetComponent<CharacterController>();
         health = GetComponent<Health>();
@@ -52,10 +53,8 @@ public class Player : MonoBehaviour
         CameraRotate();
         CameraMovement();
 
-        if (Input.GetButtonDown("Fire"))
-        {
+        if (Input.GetButtonDown("Fire")) // shoot current weapon
             inventory.inventory[inventory.currentWeaponIndex].Shoot();
-        }
     }
 
     void CameraRotate()

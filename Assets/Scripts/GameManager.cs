@@ -13,18 +13,46 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+
+    public GameObject enemyPrefab;
+    public Transform enemiesParent;
+    public Transform[] spawnpoints;
     public List<Weapon> weapons; // list of weapons in game
     public int killcount { get; set; }
+    readonly int[] weaponUnlocks = new int[] { 0, 2, 4, 6 }; // killcount unlocks
+
+    Inventory inventory;
 
     // Start is called before the first frame update
     void Start()
     {
+        inventory = Inventory.instance;
+        Health.OnKill += OnKill; // subscribe to OnKill delegate
         
+        SpawnEnemies(1);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnKill()
     {
-        
+        killcount++;
+
+        if (killcount == weaponUnlocks[1])
+            inventory.AddWeapon(weapons[1], 1); // add shotgun
+        else if (killcount == weaponUnlocks[2])
+            inventory.AddWeapon(weapons[2], 2); // add M16
+        else if (killcount == weaponUnlocks[3])
+            inventory.AddWeapon(weapons[3], 3); // add RPG
+
+        Debug.Log("killcount++");
+    }
+
+    void SpawnEnemies(int count)
+    {
+        for (int i = 0; i < count; i++)
+            foreach (Transform spawn in spawnpoints)
+            {
+                GameObject enemy = Instantiate(enemyPrefab, spawn);
+                enemy.transform.parent = enemiesParent;
+            }
     }
 }
