@@ -15,10 +15,11 @@ public class GameManager : MonoBehaviour
 
 
     public GameObject enemyPrefab;
-    public Transform enemiesParent;
-    public Transform[] spawnpoints;
+    public Transform enemiesParent; // parent for spawned enemies
+    public Transform[] spawnpoints; // spawnpoints on map
     public List<Weapon> weapons; // list of weapons in game
-    public int killcount { get; set; }
+
+    int killcount { get; set; }
     readonly int[] weaponUnlocks = new int[] { 0, 2, 4, 6 }; // killcount unlocks
 
     Inventory inventory;
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
         inventory = Inventory.instance;
         Health.OnKill += OnKill; // subscribe to OnKill delegate
         
-        SpawnEnemies(1);
+        SpawnEnemies(2);
     }
 
     void OnKill()

@@ -11,7 +11,7 @@ public class Inventory : MonoBehaviour
     }
     #endregion
 
-    const int INVENTORY_SIZE = 5;
+    const int INVENTORY_SIZE = 4;
     public Weapon[] inventory = new Weapon[INVENTORY_SIZE];
     Weapon currentWeapon;
 

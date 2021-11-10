@@ -507,6 +507,8 @@ MonoBehaviour:
   weapons:
   - {fileID: -4999642907765276101, guid: a4bec767146ea0c428d2828c1d31f4ad, type: 3}
   - {fileID: -1319347251351372943, guid: f7f19abf0d5c2be40a5fd2e43afdc9e5, type: 3}
+  - {fileID: 5726414725347377343, guid: e44d2816ee664a2489f7a50ee620cb57, type: 3}
+  - {fileID: 123866918122350625, guid: 9af1e79c8cefb9243be072b1b06b2783, type: 3}
 --- !u!4 &577937348
 Transform:
   m_ObjectHideFlags: 0
@@ -1839,6 +1841,10 @@ PrefabInstance:
     - target: {fileID: 4054794918291163005, guid: 96595aaea49b28e40b57895aaf631be9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4054794918291163007, guid: 96595aaea49b28e40b57895aaf631be9, type: 3}
+      propertyPath: inventory.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4054794918291163007, guid: 96595aaea49b28e40b57895aaf631be9, type: 3}
       propertyPath: inventory.Array.data[0]
