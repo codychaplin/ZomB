@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
         CameraRotate();
         CameraMovement();
 
-        if (Input.GetButtonDown("Fire")) // shoot current weapon
+        if (Input.GetButtonDown("Fire") || Input.GetButton("Fire")) // shoot current weapon
             inventory.inventory[inventory.currentWeaponIndex].Shoot();
     }
 

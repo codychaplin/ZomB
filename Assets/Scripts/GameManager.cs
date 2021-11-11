@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         inventory = Inventory.instance;
         Health.onKill += Kill; // subscribe to OnKill delegate
         
-        SpawnEnemies(2);
+        SpawnEnemies(3);
     }
 
     void Kill()

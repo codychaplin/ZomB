@@ -505,10 +505,10 @@ MonoBehaviour:
   - {fileID: 2050835226}
   - {fileID: 2110002628}
   weapons:
-  - {fileID: -4999642907765276101, guid: a4bec767146ea0c428d2828c1d31f4ad, type: 3}
-  - {fileID: -1319347251351372943, guid: f7f19abf0d5c2be40a5fd2e43afdc9e5, type: 3}
-  - {fileID: 5726414725347377343, guid: e44d2816ee664a2489f7a50ee620cb57, type: 3}
-  - {fileID: 123866918122350625, guid: 9af1e79c8cefb9243be072b1b06b2783, type: 3}
+  - {fileID: 4871192779769987888, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
+  - {fileID: 8750187933388807985, guid: 8b0b86b42def11849a8eba21f4a6a684, type: 3}
+  - {fileID: 7750625067647832597, guid: 689946d975a0e55449b1e7ae41933e73, type: 3}
+  - {fileID: -8193774621336281115, guid: 02baef62b1bfedf40bb369fb7542b9e7, type: 3}
 --- !u!4 &577937348
 Transform:
   m_ObjectHideFlags: 0

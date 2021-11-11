@@ -6,7 +6,9 @@ public class Weapon : MonoBehaviour
     public string weaponName;
     public int ammoCapacity;
     public int damage;
-    public int knockback = 2;
+    public int knockback;
+    public float fireRate;
+    float nextShot;
 
     public GameObject sourcePrefab { get; set; }
     int currentAmmo;
@@ -18,26 +20,29 @@ public class Weapon : MonoBehaviour
 
     public void Shoot()
     {
-        if (currentAmmo > 0) // if has ammo
+        if (Time.time >= nextShot)
         {
-            Ray ray = new Ray(muzzle.position, muzzle.forward); // ray that shoots from muzzle
-            int mask = 1 << LayerMask.NameToLayer("Enemy"); // layerMask of enemy
-            if (Physics.Raycast(ray, out RaycastHit hit, 1000f, mask))
+            if (currentAmmo > 0) // if has ammo
             {
-                Health enemyHealth = hit.collider.GetComponent<Health>();
-                if (enemyHealth != null)
+                Ray ray = new Ray(muzzle.position, muzzle.forward); // ray that shoots from muzzle
+                int mask = 1 << LayerMask.NameToLayer("Enemy"); // layerMask of enemy
+                if (Physics.Raycast(ray, out RaycastHit hit, 1000f, mask))
                 {
-                    Vector3 direction = ray.direction;
-                    enemyHealth.TakeDamage(damage);
-                    enemyHealth.OnHit.Invoke(direction, knockback);
+                    Health enemyHealth = hit.collider.GetComponent<Health>();
+                    if (enemyHealth != null)
+                    {
+                        enemyHealth.TakeDamage(damage);
+                        enemyHealth.OnHit.Invoke(ray.direction, knockback);
+                    }
                 }
+
+                //Debug.Log(weaponName + ": Bang");
+                nextShot = Time.time + fireRate;
+                currentAmmo--; // decrement ammo
             }
-            
-            //Debug.Log(weaponName + ": Bang");
-            currentAmmo--; // decrement ammo
+            else
+                Debug.Log(weaponName + ": Out of ammo");
         }
-        else
-            Debug.Log(weaponName + ": Out of ammo");
     }
 
     public void Reload()

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(Health))]
 public class Enemy : MonoBehaviour
@@ -22,7 +21,7 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         health = GetComponent<Health>();
         health.InitializeHealth();
-        health.OnHit.AddListener(Knockback);
+        health.OnHit.AddListener(Knockback); // add event listener
     }
 
     // Update is called once per frame
