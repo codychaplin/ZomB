@@ -99,6 +99,7 @@ MonoBehaviour:
   weaponName: M16
   ammoCapacity: 100
   damage: 2
+  knockback: 1
 --- !u!1 &8313740109536786170
 GameObject:
   m_ObjectHideFlags: 0

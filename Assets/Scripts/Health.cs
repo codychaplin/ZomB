@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
     public bool isPlayer = false;
     public int maxHealth;
     int currentHealth;
+    
+    public UnityEvent<int, int> OnHealthChanged; // UI event
+    public UnityEvent<Vector3, float> OnHit; // knockback event
 
-    public event System.Action<int, int> OnHealthChanged; // event
-    public delegate void OnKillkDelegate(); // killcount deletegate
-    public static OnKillkDelegate OnKill; // static accessor
+    public delegate void OnKillDelegate();
+    public static OnKillDelegate onKill; // onKill static delegate
 
     public void InitializeHealth()
     {
@@ -18,11 +21,12 @@ public class Health : MonoBehaviour
     public void Heal(int amount)
     {
         currentHealth += amount; // add health
+
         if (currentHealth > maxHealth)
             currentHealth = maxHealth; // clamp to max health
 
         if (OnHealthChanged != null) // trigger event
-            OnHealthChanged(maxHealth, currentHealth);
+            OnHealthChanged.Invoke(maxHealth, currentHealth);
     }
 
     public void TakeDamage(int amount)
@@ -30,18 +34,21 @@ public class Health : MonoBehaviour
         currentHealth -= amount; // reduce health
 
         if (currentHealth <= 0)
+        {
+            currentHealth = 0;
             Die();
+        }
 
         if (OnHealthChanged != null) // trigger event
-            OnHealthChanged(maxHealth, currentHealth);
+            OnHealthChanged.Invoke(maxHealth, currentHealth);
     }
 
     void Die()
     {
         if (!isPlayer) // deletes enemy from scene
         {
-            if (OnKill != null) // trigger delegate
-                OnKill();
+            if (onKill != null) // trigger delegate
+                onKill.Invoke();
 
             GameObject.Destroy(this.gameObject); // destroy gameobject
         }

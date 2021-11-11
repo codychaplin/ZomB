@@ -52,7 +52,6 @@ public class Inventory : MonoBehaviour
 
     public void AddWeapon(Weapon weapon, int index)
     {
-        Debug.Log("add weapon");
         Weapon newWeapon = Instantiate(weapon, player.weaponParent); // instantiates gun prefab
         newWeapon.sourcePrefab = weapon.gameObject;
         weaponsUnlocked[index] = true; // unlocks weapon at index

@@ -6,6 +6,7 @@ public class Weapon : MonoBehaviour
     public string weaponName;
     public int ammoCapacity;
     public int damage;
+    public int knockback = 2;
 
     public GameObject sourcePrefab { get; set; }
     int currentAmmo;
@@ -25,7 +26,11 @@ public class Weapon : MonoBehaviour
             {
                 Health enemyHealth = hit.collider.GetComponent<Health>();
                 if (enemyHealth != null)
+                {
+                    Vector3 direction = ray.direction;
                     enemyHealth.TakeDamage(damage);
+                    enemyHealth.OnHit.Invoke(direction, knockback);
+                }
             }
             
             //Debug.Log(weaponName + ": Bang");

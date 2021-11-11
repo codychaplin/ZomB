@@ -20,7 +20,7 @@ public class OverheadUI : MonoBehaviour
         healthSlider = UI.GetChild(0).GetComponent<Image>(); // image within healthbar
 
         // subscribes to player's OnHealthChanged event
-        GetComponent<Health>().OnHealthChanged += OnHealthChanged;
+        GetComponent<Health>().OnHealthChanged.AddListener(OnHealthChanged);
     }
 
     void LateUpdate()
@@ -38,7 +38,7 @@ public class OverheadUI : MonoBehaviour
         float healthPercent = currentHealth / (float)maxHealth; // gets health level as percent
         healthSlider.fillAmount = healthPercent; // update slider fill amount
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && UI != null)
             Destroy(UI.gameObject, 1f); // on death, delete healthbar
     }
 }

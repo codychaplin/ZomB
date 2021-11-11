@@ -100,7 +100,8 @@ MonoBehaviour:
   muzzle: {fileID: 3226469415491733135}
   weaponName: RPG
   ammoCapacity: 5
-  damage: 20
+  damage: 19
+  knockback: 6
 --- !u!1 &8560706628427312975
 GameObject:
   m_ObjectHideFlags: 0

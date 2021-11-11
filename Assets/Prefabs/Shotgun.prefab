@@ -129,3 +129,4 @@ MonoBehaviour:
   weaponName: Shotgun
   ammoCapacity: 6
   damage: 10
+  knockback: 4

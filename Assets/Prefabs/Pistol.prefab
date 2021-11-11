@@ -129,3 +129,4 @@ MonoBehaviour:
   weaponName: Pistol
   ammoCapacity: 12
   damage: 5
+  knockback: 2

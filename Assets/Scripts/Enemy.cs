@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Health))]
 public class Enemy : MonoBehaviour
@@ -21,6 +22,7 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         health = GetComponent<Health>();
         health.InitializeHealth();
+        health.OnHit.AddListener(Knockback);
     }
 
     // Update is called once per frame
@@ -53,5 +55,10 @@ public class Enemy : MonoBehaviour
 
             attackDelay = Time.time + attackSpeed; // set next attack time
         }
+    }
+
+    public void Knockback(Vector3 direction, float force)
+    {
+        agent.velocity = direction * force;
     }
 }
