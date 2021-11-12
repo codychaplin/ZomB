@@ -4,16 +4,19 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour
 {
     public bool isPlayer = false;
+    public bool isObstacle = false;
     public int maxHealth;
     int currentHealth;
     
+    [HideInInspector]
     public UnityEvent<int, int> OnHealthChanged; // UI event
+    [HideInInspector]
     public UnityEvent<Vector3, float> OnHit; // knockback event
 
     public delegate void OnKillDelegate();
     public static OnKillDelegate onKill; // onKill static delegate
 
-    public void InitializeHealth()
+    private void Start()
     {
         currentHealth = maxHealth; // sets health to full
     }
@@ -47,7 +50,7 @@ public class Health : MonoBehaviour
     {
         if (!isPlayer) // deletes enemy from scene
         {
-            if (onKill != null) // trigger delegate
+            if (onKill != null && !isObstacle) // trigger killcount delegate
                 onKill.Invoke();
 
             GameObject.Destroy(this.gameObject); // destroy gameobject

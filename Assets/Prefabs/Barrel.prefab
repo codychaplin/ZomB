@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &639528522319767502
+--- !u!1 &5294329087586565747
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3501394426605594916}
-  - component: {fileID: 5290078365154713530}
-  - component: {fileID: 4353907532815319909}
-  m_Layer: 9
-  m_Name: ZomB
+  - component: {fileID: 7713639459538116470}
+  - component: {fileID: 3069331994713439997}
+  - component: {fileID: 7943610652453326976}
+  m_Layer: 0
+  m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3501394426605594916
+--- !u!4 &7713639459538116470
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 639528522319767502}
-  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_GameObject: {fileID: 5294329087586565747}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 353204074598298177}
+  m_Father: {fileID: 6784794623809494831}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 90}
---- !u!33 &5290078365154713530
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &3069331994713439997
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 639528522319767502}
-  m_Mesh: {fileID: -5495902117074765545, guid: b03463460ceb5f243aac02944fb2115d, type: 3}
---- !u!23 &4353907532815319909
+  m_GameObject: {fileID: 5294329087586565747}
+  m_Mesh: {fileID: 8108563764783910780, guid: b706994583ce97f4bad2f769fbc9523b, type: 3}
+--- !u!23 &7943610652453326976
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 639528522319767502}
+  m_GameObject: {fileID: 5294329087586565747}
   m_Enabled: 1
-  m_CastShadows: 2
+  m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: b03463460ceb5f243aac02944fb2115d, type: 3}
+  - {fileID: -876546973899608171, guid: b706994583ce97f4bad2f769fbc9523b, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,7 +81,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &1129565200208799995
+--- !u!1 &6152970903234102677
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,97 +89,76 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 353204074598298177}
-  - component: {fileID: 2562855570767432576}
-  - component: {fileID: 6174649208614641395}
-  - component: {fileID: 5227925409924162380}
-  - component: {fileID: 2868462984472843211}
-  m_Layer: 9
-  m_Name: ZomB
+  - component: {fileID: 6784794623809494831}
+  - component: {fileID: 4842633502695691959}
+  - component: {fileID: 3298307573817153372}
+  - component: {fileID: -1805755556708995969}
+  m_Layer: 0
+  m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &353204074598298177
+--- !u!4 &6784794623809494831
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129565200208799995}
+  m_GameObject: {fileID: 6152970903234102677}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3501394426605594916}
+  - {fileID: 7713639459538116470}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2562855570767432576
+--- !u!65 &4842633502695691959
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129565200208799995}
+  m_GameObject: {fileID: 6152970903234102677}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 2, z: 0.45}
-  m_Center: {x: 0, y: 1, z: 0.05}
---- !u!195 &6174649208614641395
-NavMeshAgent:
+  m_Size: {x: 1, y: 1.25, z: 1}
+  m_Center: {x: 0.5, y: 0.625, z: 0.5}
+--- !u!208 &3298307573817153372
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129565200208799995}
+  m_GameObject: {fileID: 6152970903234102677}
   m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.47
-  m_Speed: 3
-  m_Acceleration: 20
-  avoidancePriority: 50
-  m_AngularSpeed: 1000
-  m_StoppingDistance: 1.8
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &5227925409924162380
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 0.625, z: 0.25}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.5, y: 0.625, z: 0.5}
+  m_TimeToStationary: 0.5
+--- !u!114 &-1805755556708995969
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129565200208799995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f0d5c3d3041b14699dc6f542e585b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackSpeed: 1.5
-  attackDamage: 10
---- !u!114 &2868462984472843211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129565200208799995}
+  m_GameObject: {fileID: 6152970903234102677}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4921ff35aed93554ba175b2d898a8461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
-  isObstacle: 0
-  maxHealth: 20
+  isObstacle: 1
+  maxHealth: 1
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []

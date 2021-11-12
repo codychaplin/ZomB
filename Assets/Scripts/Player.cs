@@ -43,7 +43,6 @@ public class Player : MonoBehaviour
         inventory = Inventory.instance;
         controller = GetComponent<CharacterController>();
         health = GetComponent<Health>();
-        health.InitializeHealth();
     }
 
     // Update is called once per frame
@@ -52,9 +51,6 @@ public class Player : MonoBehaviour
         CharacterMovement();
         CameraRotate();
         CameraMovement();
-
-        if (Input.GetButtonDown("Fire") || Input.GetButton("Fire")) // shoot current weapon
-            inventory.inventory[inventory.currentWeaponIndex].Shoot();
     }
 
     void CameraRotate()
@@ -95,5 +91,15 @@ public class Player : MonoBehaviour
         characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, movementSharpness * Time.deltaTime); // velocity over time
         controller.Move(characterVelocity * Time.deltaTime); // move character based on forces
         transform.position = new Vector3(transform.position.x, 0.01f, transform.position.z);
+    }
+
+    public Vector3 GetTileInfrontOfPlayer()
+    {   // dir = direction player is facing
+        // pos = player position rounded down to int
+        // tile = tile infront of player
+        Vector3 dir = transform.forward;
+        Vector3 pos = new Vector3 (Mathf.FloorToInt(transform.position.x), 0f, Mathf.FloorToInt(transform.position.z));
+        Vector3 tile = new Vector3(Mathf.Round(pos.x + dir.x), 0f, Mathf.Round(pos.z + dir.z));
+        return tile;
     }
 }

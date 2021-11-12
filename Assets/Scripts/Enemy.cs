@@ -20,7 +20,6 @@ public class Enemy : MonoBehaviour
         playerHealth = player.GetComponent<Health>();
         agent = GetComponent<NavMeshAgent>();
         health = GetComponent<Health>();
-        health.InitializeHealth();
         health.OnHit.AddListener(Knockback); // add event listener
     }
 

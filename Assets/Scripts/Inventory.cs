@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
@@ -11,15 +12,22 @@ public class Inventory : MonoBehaviour
     }
     #endregion
 
-    const int INVENTORY_SIZE = 4;
-    public Weapon[] inventory = new Weapon[INVENTORY_SIZE];
-    Weapon currentWeapon;
+    // weapon info
+    const int NUM_WEAPONS = 4;
+    Weapon[] weaponInventory = new Weapon[NUM_WEAPONS];
+    Weapon currentWeapon { get; set; }
+    int currentWeaponIndex { get; set; }
+
+    // obstacle info
+    public List<Obstacle> obstacleInventory;
+    Obstacle currentObstacle { get; set; }
+    int currentObstacleIndex { get; set; }
 
     public delegate void OnItemChanged();
     public OnItemChanged onItemChanged; // inventory event
 
-    Player player;
-    public int currentWeaponIndex { get; set; }
+    Player player { get; set; }
+    GameManager manager { get; set; }
 
     bool[] weaponsUnlocked = { false, false, false, false }; // pistol, shotgun, M16, RPG
 
@@ -27,11 +35,19 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         player = Player.instance;
+        manager = GameManager.instance;
 
-        AddWeapon(GameManager.instance.weapons[0], 0); // adds pistol to inventory
+        AddWeapon(manager.weapons[0], 0); // adds pistol to inventory
 
-        if (inventory[0] != null)
+        if (weaponInventory[0] != null)
             SwitchWeapon(0); // switch to weapon in first index
+
+        if (obstacleInventory[0] != null)
+            SwitchObstacle(0); // switch to obstacle in first index
+
+        foreach (Obstacle ob in obstacleInventory)
+            if (ob != null)
+                ob.count = 0; // set count to each obstacle in inventory to 0
     }
 
     // Update is called once per frame
@@ -46,16 +62,21 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4) && weaponsUnlocked[3]) // if RPG is unlocked
             SwitchWeapon(3); // weapon slot 3
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetButtonDown("Fire") || Input.GetButton("Fire")) // shoot current weapon
+            currentWeapon.Shoot();
+
+        if (Input.GetKeyDown(KeyCode.R)) // reloads weapon
             currentWeapon.Reload();
+
+        if (Input.GetKeyDown(KeyCode.E)) // places obstacle
+            PlaceObstacle(currentObstacle);
     }
 
     public void AddWeapon(Weapon weapon, int index)
     {
         Weapon newWeapon = Instantiate(weapon, player.weaponParent); // instantiates gun prefab
-        newWeapon.sourcePrefab = weapon.gameObject;
         weaponsUnlocked[index] = true; // unlocks weapon at index
-        inventory[index] = newWeapon; // adds weapon to inventory
+        weaponInventory[index] = newWeapon; // adds weapon to inventory
         newWeapon.InitializeWeapon(); // initializes weapon properties
         newWeapon.ShowWeapon(false);
     }
@@ -66,10 +87,34 @@ public class Inventory : MonoBehaviour
             currentWeapon.ShowWeapon(false); // disables current weapon
 
         currentWeaponIndex = index; // updates current weapon index
-        currentWeapon = inventory[currentWeaponIndex]; // updates current weapon
+        currentWeapon = weaponInventory[currentWeaponIndex]; // updates current weapon
         currentWeapon.ShowWeapon(true); // enables current weapon
 
         /*if (onItemChanged != null)
             onItemChanged.Invoke(); // trigger event*/
+    }
+
+    void SwitchObstacle(int index)
+    {
+        currentObstacleIndex = index; // updates current obstacle index
+        currentObstacle = obstacleInventory[currentObstacleIndex]; // updates current obstacle
+
+        /*if (onItemChanged != null)
+            onItemChanged.Invoke(); // trigger event*/
+    }
+
+    void PlaceObstacle(Obstacle obstacle)
+    {
+        if (currentObstacle != null)
+        {
+            if (currentObstacle.count > 0)
+            {
+                currentObstacle.count--;
+                Vector3 pos = player.GetTileInfrontOfPlayer();
+                Instantiate(obstacle.prefab, pos, Quaternion.identity, manager.obstaclesParent);
+            }
+            else
+                Debug.Log("Out of obstacle");
+        }
     }
 }

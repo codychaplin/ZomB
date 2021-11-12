@@ -10,7 +10,6 @@ public class Weapon : MonoBehaviour
     public float fireRate;
     float nextShot;
 
-    public GameObject sourcePrefab { get; set; }
     int currentAmmo;
 
     public void InitializeWeapon()
@@ -25,8 +24,7 @@ public class Weapon : MonoBehaviour
             if (currentAmmo > 0) // if has ammo
             {
                 Ray ray = new Ray(muzzle.position, muzzle.forward); // ray that shoots from muzzle
-                int mask = 1 << LayerMask.NameToLayer("Enemy"); // layerMask of enemy
-                if (Physics.Raycast(ray, out RaycastHit hit, 1000f, mask))
+                if (Physics.Raycast(ray, out RaycastHit hit, 1000f))
                 {
                     Health enemyHealth = hit.collider.GetComponent<Health>();
                     if (enemyHealth != null)
