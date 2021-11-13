@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour
     public int ammoCapacity;
     public int damage;
     public int knockback;
+    public bool hasBlastRadius = false;
     public float fireRate;
     float nextShot;
 
@@ -27,10 +28,27 @@ public class Weapon : MonoBehaviour
                 if (Physics.Raycast(ray, out RaycastHit hit, 1000f))
                 {
                     Health enemyHealth = hit.collider.GetComponent<Health>();
-                    if (enemyHealth != null)
+                    if (enemyHealth != null) // if collider has health component
                     {
-                        enemyHealth.TakeDamage(damage);
-                        enemyHealth.OnHit.Invoke(ray.direction, knockback);
+                        enemyHealth.TakeDamage(damage); // apply damage
+                        enemyHealth.OnHit.Invoke(ray.direction, knockback); // apply knockback
+                    }
+
+                    if (hasBlastRadius)
+                    {
+                        int mask = 1 << LayerMask.NameToLayer("Enemy");
+                        Collider[] colliders = Physics.OverlapSphere(hit.point, 3f, mask); // gets all colliders within radius
+                        if (colliders.Length > 0)
+                            foreach (Collider col in colliders)
+                            {
+                                Health health = col.GetComponent<Health>();
+                                if (health != null && health != enemyHealth) // if has health component and not enemyHealth
+                                {
+                                    health.TakeDamage(damage); // apply damage
+                                    Vector3 direction = col.transform.position - hit.point; // get direction from original hit
+                                    health.OnHit.Invoke(direction, knockback); // apply knockback
+                                }
+                            }
                     }
                 }
 
