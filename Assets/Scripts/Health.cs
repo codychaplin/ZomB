@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
     public bool isObstacle = false;
     public int maxHealth;
     int currentHealth;
+    GameManager manager;
     
     [HideInInspector]
     public UnityEvent<int, int> OnHealthChanged; // UI event
@@ -19,6 +20,7 @@ public class Health : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth; // sets health to full
+        manager = GameManager.instance;
     }
 
     public void Heal(int amount)
@@ -51,10 +53,12 @@ public class Health : MonoBehaviour
         if (!isPlayer) // deletes enemy from scene
         {
             if (onKill != null && !isObstacle) // trigger killcount delegate
+            {
+                // spawn giftbox on death
+                if (manager.killcount >= manager.weaponUnlocks[1] && Random.Range(1, 10) <= manager.GiftboxFrequency) // chance of spawning
+                    Instantiate(GameManager.instance.giftbox, transform.position, Quaternion.identity, GameManager.instance.GiftboxesParent);
                 onKill.Invoke();
-
-            // spawn giftbox on death
-            Instantiate(GameManager.instance.giftbox, transform.position, Quaternion.identity, GameManager.instance.GiftboxesParent);
+            }
 
             GameObject.Destroy(this.gameObject); // destroy gameobject
         }

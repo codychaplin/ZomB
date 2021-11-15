@@ -12,7 +12,11 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
     #endregion
-    
+
+    [Range(1, 10)]
+    public int GiftboxFrequency = 7;
+    [Range(1, 10)]
+    public int GiftboxAmmoFrequency = 5;
     public GameObject enemyPrefab;
     public GameObject giftbox;
     public Transform enemiesParent; // parent for spawned enemies
@@ -23,8 +27,8 @@ public class GameManager : MonoBehaviour
     public bool spawnEnemies;
     public int enemyCount;
 
-    int killcount { get; set; }
-    readonly int[] weaponUnlocks = new int[] { 0, 2, 4, 6 }; // killcount unlocks
+    public int killcount { get; private set; }
+    public readonly int[] weaponUnlocks = new int[] { 0, 2, 4, 6 }; // killcount unlocks
 
     Inventory inventory;
 
@@ -45,11 +49,9 @@ public class GameManager : MonoBehaviour
         if (killcount == weaponUnlocks[1])
             inventory.AddWeapon(weapons[1], 1); // add shotgun
         else if (killcount == weaponUnlocks[2])
-            inventory.AddWeapon(weapons[2], 2); // add M16
+            inventory.AddWeapon(weapons[2], 2); // add M4
         else if (killcount == weaponUnlocks[3])
             inventory.AddWeapon(weapons[3], 3); // add RPG
-
-        Debug.Log("killcount++");
     }
 
     void SpawnEnemies(int count)

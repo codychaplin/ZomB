@@ -239,11 +239,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzle: {fileID: 4314784194266678}
   weaponName: Pistol
-  maxAmmo: 48
+  maxAmmo: 999
+  unlimitedAmmo: 1
   damage: 5
   knockback: 2
   hasBlastRadius: 0
-  fireRate: 0.3
+  fireRate: 0.2
 --- !u!1 &1748277932983872
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,13 +5,13 @@ public class Weapon : MonoBehaviour
     public Transform muzzle;
     public string weaponName;
     public int maxAmmo;
+    public bool unlimitedAmmo = false;
     public int damage;
     public int knockback;
     public bool hasBlastRadius = false;
     public float fireRate;
     float nextShot;
-
-    int currentAmmo;
+    public int currentAmmo { get; private set; }
 
     public void InitializeWeapon()
     {
@@ -54,7 +54,10 @@ public class Weapon : MonoBehaviour
 
                 //Debug.Log(weaponName + ": Bang");
                 nextShot = Time.time + fireRate;
-                currentAmmo--; // decrement ammo
+                if (!unlimitedAmmo)
+                    currentAmmo--; // decrement ammo
+
+                Inventory.instance.onUpdateUI.Invoke(weaponName, currentAmmo, unlimitedAmmo);
             }
             else
                 Debug.Log(weaponName + ": Out of ammo");
@@ -72,6 +75,12 @@ public class Weapon : MonoBehaviour
         currentAmmo += amount;
         if (currentAmmo > maxAmmo)
             currentAmmo = maxAmmo;
+
+        if (this == Inventory.instance.currentWeapon)
+        {
+            Debug.Log("current weapon!");
+            Inventory.instance.onUpdateUI.Invoke(weaponName, currentAmmo, unlimitedAmmo);
+        }
 
         Debug.Log("Added " + amount + " ammo to " + weaponName);
     }

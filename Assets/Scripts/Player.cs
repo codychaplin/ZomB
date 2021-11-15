@@ -33,16 +33,11 @@ public class Player : MonoBehaviour
     float yaw = 100f;
 
     Vector3 characterVelocity;
-    Inventory inventory;
-    Health health;
 
     // Start is called before the first frame update
     void Start()
     {
-        // references
-        inventory = Inventory.instance;
         controller = GetComponent<CharacterController>();
-        health = GetComponent<Health>();
     }
 
     // Update is called once per frame

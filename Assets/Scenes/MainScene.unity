@@ -497,6 +497,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96f4b953b51c1ad47b22e4a29c772bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GiftboxFrequency: 3
+  GiftboxAmmoFrequency: 7
   enemyPrefab: {fileID: 1129565200208799995, guid: 69b2347028297f14791a770ca607ff37, type: 3}
   giftbox: {fileID: 1530040543213023982, guid: cb865bc4e84387141a93fe5e1e2bcfa0, type: 3}
   enemiesParent: {fileID: 1529455941}
@@ -1939,6 +1941,22 @@ PrefabInstance:
       propertyPath: obstacleInventory.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: 95ad5500ec8d89b46b531cb7f815dfa6, type: 2}
+    - target: {fileID: 4054794918291163007, guid: 96595aaea49b28e40b57895aaf631be9, type: 3}
+      propertyPath: weaponInventory.Array.data[0]
+      value: 
+      objectReference: {fileID: 4871192779769987888, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
+    - target: {fileID: 4054794918291163007, guid: 96595aaea49b28e40b57895aaf631be9, type: 3}
+      propertyPath: weaponInventory.Array.data[1]
+      value: 
+      objectReference: {fileID: 8750187933388807985, guid: 8b0b86b42def11849a8eba21f4a6a684, type: 3}
+    - target: {fileID: 4054794918291163007, guid: 96595aaea49b28e40b57895aaf631be9, type: 3}
+      propertyPath: weaponInventory.Array.data[2]
+      value: 
+      objectReference: {fileID: 7750625067647832597, guid: 689946d975a0e55449b1e7ae41933e73, type: 3}
+    - target: {fileID: 4054794918291163007, guid: 96595aaea49b28e40b57895aaf631be9, type: 3}
+      propertyPath: weaponInventory.Array.data[3]
+      value: 
+      objectReference: {fileID: -8193774621336281115, guid: 02baef62b1bfedf40bb369fb7542b9e7, type: 3}
     - target: {fileID: 4054794919077231287, guid: 96595aaea49b28e40b57895aaf631be9, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -1951,5 +1969,9 @@ PrefabInstance:
       propertyPath: healthbarPrefab
       value: 
       objectReference: {fileID: 2643659120641053943, guid: bb10b7f633a721a4ab09459fc7170673, type: 3}
+    - target: {fileID: 4108976397069169556, guid: 96595aaea49b28e40b57895aaf631be9, type: 3}
+      propertyPath: WeaponInfoPrefab
+      value: 
+      objectReference: {fileID: 2643659120641053943, guid: eeeca18c9ee7a5640a71ddbf044289ab, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96595aaea49b28e40b57895aaf631be9, type: 3}

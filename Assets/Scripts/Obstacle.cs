@@ -10,7 +10,7 @@ public class Obstacle : ScriptableObject
     public void Add(int amount)
     {
         count += amount;
-        Debug.Log("Added " + amount + " ammo to " + type);
+        Debug.Log("Added " + amount + " obstacles to " + type);
     }
 }
 

@@ -15,16 +15,16 @@ public class Inventory : MonoBehaviour
     // weapon info
     const int NUM_WEAPONS = 4;
     public Weapon[] weaponInventory = new Weapon[NUM_WEAPONS];
-    Weapon currentWeapon { get; set; }
+    public Weapon currentWeapon { get; private set; }
     int currentWeaponIndex { get; set; }
 
     // obstacle info
     public List<Obstacle> obstacleInventory;
-    Obstacle currentObstacle { get; set; }
+    public Obstacle currentObstacle { get; private set; }
     int currentObstacleIndex { get; set; }
 
-    public delegate void OnItemChanged();
-    public OnItemChanged onItemChanged; // inventory event
+    public delegate void OnUpdateUI(string name, int ammo, bool hasUnlimitedAmmo);
+    public OnUpdateUI onUpdateUI; // inventory event
 
     Player player { get; set; }
     GameManager manager { get; set; }
@@ -56,14 +56,19 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) && currentWeaponIndex != 0)
             SwitchWeapon(0); // weapon slot 0
-        if (Input.GetKeyDown(KeyCode.Alpha2) && numWeaponsUnlocked >= 2) // if shotgun is unlocked
+        if (Input.GetKeyDown(KeyCode.Alpha2) && currentWeaponIndex != 1 && numWeaponsUnlocked >= 2) // if shotgun is unlocked
             SwitchWeapon(1); // weapon slot 1
-        if (Input.GetKeyDown(KeyCode.Alpha3) && numWeaponsUnlocked >= 3) // if M16 is unlocked
+        if (Input.GetKeyDown(KeyCode.Alpha3) && currentWeaponIndex != 2 && numWeaponsUnlocked >= 3) // if M16 is unlocked
             SwitchWeapon(2); // weapon slot 2
-        if (Input.GetKeyDown(KeyCode.Alpha4) && numWeaponsUnlocked >= 4) // if RPG is unlocked
+        if (Input.GetKeyDown(KeyCode.Alpha4) && currentWeaponIndex != 3 && numWeaponsUnlocked >= 4) // if RPG is unlocked
             SwitchWeapon(3); // weapon slot 3
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+            SwitchObstacle(0); // obstacle slot 1
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+            SwitchObstacle(1); // obstacle slot 2
 
         if (Input.GetButtonDown("Fire") || Input.GetButton("Fire")) // shoot current weapon
             currentWeapon.Shoot();
@@ -93,8 +98,9 @@ public class Inventory : MonoBehaviour
         currentWeapon = weaponInventory[currentWeaponIndex]; // updates current weapon
         currentWeapon.ShowWeapon(true); // enables current weapon
 
-        /*if (onItemChanged != null)
-            onItemChanged.Invoke(); // trigger event*/
+        Debug.Log("switch: " + currentWeapon.currentAmmo);
+        if (onUpdateUI != null)
+            onUpdateUI.Invoke(currentWeapon.weaponName, currentWeapon.currentAmmo, currentWeapon.unlimitedAmmo); // trigger event
     }
 
     void SwitchObstacle(int index)
