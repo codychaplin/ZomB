@@ -53,6 +53,9 @@ public class Health : MonoBehaviour
             if (onKill != null && !isObstacle) // trigger killcount delegate
                 onKill.Invoke();
 
+            // spawn giftbox on death
+            Instantiate(GameManager.instance.giftbox, transform.position, Quaternion.identity, GameManager.instance.GiftboxesParent);
+
             GameObject.Destroy(this.gameObject); // destroy gameobject
         }
         else

@@ -102,9 +102,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzle: {fileID: 4900542679847497540}
   weaponName: M4
-  ammoCapacity: 100
+  maxAmmo: 100
   damage: 2
   knockback: 1
+  hasBlastRadius: 0
   fireRate: 0.1
 --- !u!1 &1426050648627750
 GameObject:

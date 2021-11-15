@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3068705858336789612}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: OverheadParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,9 +44,9 @@ GameObject:
   - component: {fileID: 4054794918291163006}
   - component: {fileID: 4108976397069169556}
   - component: {fileID: 4054794918291163007}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bbbbd1dc92216d41b8802cf1a431739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obstacleInventory: []
 --- !u!1 &4054794919077231287
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +167,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4054794919077231286}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: WeaponParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5b60534ed97a87c459c67bf9ed47c3ca, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b60534ed97a87c459c67bf9ed47c3ca, type: 3}

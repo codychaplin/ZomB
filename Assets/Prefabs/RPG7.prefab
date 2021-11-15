@@ -180,7 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzle: {fileID: 776758602626375312}
   weaponName: RPG
-  ammoCapacity: 5
+  maxAmmo: 4
   damage: 9
   knockback: 6
   hasBlastRadius: 1

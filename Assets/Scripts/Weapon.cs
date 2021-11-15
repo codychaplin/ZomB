@@ -4,7 +4,7 @@ public class Weapon : MonoBehaviour
 {
     public Transform muzzle;
     public string weaponName;
-    public int ammoCapacity;
+    public int maxAmmo;
     public int damage;
     public int knockback;
     public bool hasBlastRadius = false;
@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour
 
     public void InitializeWeapon()
     {
-        currentAmmo = ammoCapacity; // ammo is set to max capacity
+        currentAmmo = maxAmmo; // ammo is set to max capacity
     }
 
     public void Shoot()
@@ -64,7 +64,16 @@ public class Weapon : MonoBehaviour
     public void Reload()
     {
         Debug.Log("Reloading");
-        currentAmmo = ammoCapacity;
+        currentAmmo = maxAmmo;
+    }
+
+    public void AddAmmo(int amount)
+    {
+        currentAmmo += amount;
+        if (currentAmmo > maxAmmo)
+            currentAmmo = maxAmmo;
+
+        Debug.Log("Added " + amount + " ammo to " + weaponName);
     }
 
     public void ShowWeapon(bool show)

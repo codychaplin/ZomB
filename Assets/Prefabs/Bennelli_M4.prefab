@@ -99,9 +99,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzle: {fileID: 4397759876451243501}
   weaponName: Shotgun
-  ammoCapacity: 6
+  maxAmmo: 12
   damage: 10
   knockback: 4
+  hasBlastRadius: 0
   fireRate: 0.7
 --- !u!1 &1326079549577358
 GameObject:

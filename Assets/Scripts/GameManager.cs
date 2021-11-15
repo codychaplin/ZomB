@@ -14,11 +14,14 @@ public class GameManager : MonoBehaviour
     #endregion
     
     public GameObject enemyPrefab;
+    public GameObject giftbox;
     public Transform enemiesParent; // parent for spawned enemies
     public Transform obstaclesParent; // spawnpoints on map
+    public Transform GiftboxesParent; // spawnpoints on map
     public Transform[] spawnpoints; // spawnpoints on map
     public List<Weapon> weapons; // list of weapons in game
     public bool spawnEnemies;
+    public int enemyCount;
 
     int killcount { get; set; }
     readonly int[] weaponUnlocks = new int[] { 0, 2, 4, 6 }; // killcount unlocks
@@ -32,7 +35,7 @@ public class GameManager : MonoBehaviour
         Health.onKill += OnKill; // subscribe to OnKill delegate
         
         if (spawnEnemies)
-            SpawnEnemies(3);
+            SpawnEnemies(enemyCount);
     }
 
     void OnKill()
@@ -53,9 +56,6 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
             foreach (Transform spawn in spawnpoints)
-            {
-                GameObject enemy = Instantiate(enemyPrefab, spawn);
-                enemy.transform.parent = enemiesParent;
-            }
+                Instantiate(enemyPrefab, spawn.position, Quaternion.identity, enemiesParent);
     }
 }

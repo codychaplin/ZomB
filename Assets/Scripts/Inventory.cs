@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
 
     // weapon info
     const int NUM_WEAPONS = 4;
-    Weapon[] weaponInventory = new Weapon[NUM_WEAPONS];
+    public Weapon[] weaponInventory = new Weapon[NUM_WEAPONS];
     Weapon currentWeapon { get; set; }
     int currentWeaponIndex { get; set; }
 
@@ -29,7 +29,8 @@ public class Inventory : MonoBehaviour
     Player player { get; set; }
     GameManager manager { get; set; }
 
-    bool[] weaponsUnlocked = { false, false, false, false }; // pistol, shotgun, M16, RPG
+    public int numWeaponsUnlocked { get; private set; }
+    public int numObstaclesUnlocked { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -37,11 +38,13 @@ public class Inventory : MonoBehaviour
         player = Player.instance;
         manager = GameManager.instance;
 
+        numWeaponsUnlocked = 0;
         AddWeapon(manager.weapons[0], 0); // adds pistol to inventory
 
         if (weaponInventory[0] != null)
             SwitchWeapon(0); // switch to weapon in first index
 
+        numObstaclesUnlocked = 2;
         if (obstacleInventory[0] != null)
             SwitchObstacle(0); // switch to obstacle in first index
 
@@ -55,11 +58,11 @@ public class Inventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
             SwitchWeapon(0); // weapon slot 0
-        if (Input.GetKeyDown(KeyCode.Alpha2) && weaponsUnlocked[1]) // if shotgun is unlocked
+        if (Input.GetKeyDown(KeyCode.Alpha2) && numWeaponsUnlocked >= 2) // if shotgun is unlocked
             SwitchWeapon(1); // weapon slot 1
-        if (Input.GetKeyDown(KeyCode.Alpha3) && weaponsUnlocked[2]) // if M16 is unlocked
+        if (Input.GetKeyDown(KeyCode.Alpha3) && numWeaponsUnlocked >= 3) // if M16 is unlocked
             SwitchWeapon(2); // weapon slot 2
-        if (Input.GetKeyDown(KeyCode.Alpha4) && weaponsUnlocked[3]) // if RPG is unlocked
+        if (Input.GetKeyDown(KeyCode.Alpha4) && numWeaponsUnlocked >= 4) // if RPG is unlocked
             SwitchWeapon(3); // weapon slot 3
 
         if (Input.GetButtonDown("Fire") || Input.GetButton("Fire")) // shoot current weapon
@@ -75,7 +78,7 @@ public class Inventory : MonoBehaviour
     public void AddWeapon(Weapon weapon, int index)
     {
         Weapon newWeapon = Instantiate(weapon, player.weaponParent); // instantiates gun prefab
-        weaponsUnlocked[index] = true; // unlocks weapon at index
+        numWeaponsUnlocked++; // unlocks new weapon
         weaponInventory[index] = newWeapon; // adds weapon to inventory
         newWeapon.InitializeWeapon(); // initializes weapon properties
         newWeapon.ShowWeapon(false);
