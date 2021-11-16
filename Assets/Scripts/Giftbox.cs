@@ -7,7 +7,7 @@ public class Giftbox : MonoBehaviour
         if (other.tag == "Player")
         {
             Inventory inv = Inventory.instance;
-            if (Random.Range(1, 10) <= GameManager.instance.GiftboxAmmoFrequency) // adds weapon ammo
+            if (Random.Range(1, 100) <= GameManager.instance.GiftboxAmmoFrequency) // adds weapon ammo
             {
                 int rand = Random.Range(1, inv.numWeaponsUnlocked); // random unlocked weapon in inv
                 Weapon randWeapon = inv.weaponInventory[rand];
@@ -16,8 +16,6 @@ public class Giftbox : MonoBehaviour
                     int amount = Random.Range(randWeapon.maxAmmo / 8, randWeapon.maxAmmo / 2);
                     randWeapon.AddAmmo(amount);
                 }
-                else
-                    Debug.Log("rand weapon is null");
             }
             else // adds obstacles
             {
@@ -28,8 +26,6 @@ public class Giftbox : MonoBehaviour
                     int amount = Random.Range(1, 10);
                     randObstacle.Add(amount);
                 }
-                else
-                    Debug.Log("rand obstacle is null");
             }
             
             Destroy(this.gameObject); // destroy gameobject on pickup

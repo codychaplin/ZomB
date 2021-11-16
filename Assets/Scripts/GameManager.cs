@@ -13,19 +13,22 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    [Range(1, 10)]
+    [Header("Giftbox Settings")]
+    public GameObject giftbox; // giftbox prefab
+    public Transform GiftboxesParent;
+    [Range(1, 100)]
     public int GiftboxFrequency = 7;
-    [Range(1, 10)]
+    [Range(1, 100)]
     public int GiftboxAmmoFrequency = 5;
+    [Header("Enemy Settings")]
     public GameObject enemyPrefab;
-    public GameObject giftbox;
     public Transform enemiesParent; // parent for spawned enemies
-    public Transform obstaclesParent; // spawnpoints on map
-    public Transform GiftboxesParent; // spawnpoints on map
-    public Transform[] spawnpoints; // spawnpoints on map
-    public List<Weapon> weapons; // list of weapons in game
-    public bool spawnEnemies;
     public int enemyCount;
+    public bool spawnEnemies;
+    public Transform[] spawnpoints; // spawnpoints on map
+    [Header("Weapon/Obstacle Settings")]
+    public Transform obstaclesParent;
+    public List<Weapon> weapons; // list of weapons in game
 
     public int killcount { get; private set; }
     public readonly int[] weaponUnlocks = new int[] { 0, 2, 4, 6 }; // killcount unlocks

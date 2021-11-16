@@ -2,7 +2,9 @@
 
 public class Weapon : MonoBehaviour
 {
+    [Header("References")]
     public Transform muzzle;
+    [Header("Weapon Properties")]
     public string weaponName;
     public int maxAmmo;
     public bool unlimitedAmmo = false;
@@ -10,8 +12,9 @@ public class Weapon : MonoBehaviour
     public int knockback;
     public bool hasBlastRadius = false;
     public float fireRate;
-    float nextShot;
+
     public int currentAmmo { get; private set; }
+    float nextShot;
 
     public void InitializeWeapon()
     {
@@ -77,12 +80,7 @@ public class Weapon : MonoBehaviour
             currentAmmo = maxAmmo;
 
         if (this == Inventory.instance.currentWeapon)
-        {
-            Debug.Log("current weapon!");
             Inventory.instance.onUpdateUI.Invoke(weaponName, currentAmmo, unlimitedAmmo);
-        }
-
-        Debug.Log("Added " + amount + " ammo to " + weaponName);
     }
 
     public void ShowWeapon(bool show)

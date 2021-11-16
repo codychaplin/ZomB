@@ -50,7 +50,7 @@ public class Inventory : MonoBehaviour
 
         foreach (Obstacle ob in obstacleInventory)
             if (ob != null)
-                ob.count = 0; // set count to each obstacle in inventory to 0
+                ob.count = 20; // set count to each obstacle in inventory to 0
     }
 
     // Update is called once per frame
@@ -98,7 +98,6 @@ public class Inventory : MonoBehaviour
         currentWeapon = weaponInventory[currentWeaponIndex]; // updates current weapon
         currentWeapon.ShowWeapon(true); // enables current weapon
 
-        Debug.Log("switch: " + currentWeapon.currentAmmo);
         if (onUpdateUI != null)
             onUpdateUI.Invoke(currentWeapon.weaponName, currentWeapon.currentAmmo, currentWeapon.unlimitedAmmo); // trigger event
     }

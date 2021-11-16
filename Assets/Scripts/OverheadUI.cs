@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class OverheadUI : MonoBehaviour
 {
+    [Header("References")]
     public Transform target; // player overheadParent
     public GameObject healthbarPrefab; // healthbar
     public GameObject WeaponInfoPrefab; // weapon/ammo info

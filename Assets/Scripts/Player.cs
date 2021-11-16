@@ -13,10 +13,10 @@ public class Player : MonoBehaviour
     #endregion
 
     [Header("References")]
-    public new Camera camera; // references main camera
-    CharacterController controller; // references player's characterController
-    public LayerMask groundMask; // ground mask
+    public Camera cam; // references main camera
     public Transform weaponParent; // weapon slot
+    public LayerMask groundMask; // ground mask
+    CharacterController controller; // references player's characterController
 
     [Header("Movement")]
     public float playerSpeed = 5f;
@@ -28,10 +28,10 @@ public class Player : MonoBehaviour
     public float maxZoom = 12f;
     public float rotationSpeed = 1f;
     public Vector3 offset;
+
     float pitch = 1.25f;
     float zoom = 3f;
     float yaw = 100f;
-
     Vector3 characterVelocity;
 
     // Start is called before the first frame update
@@ -56,9 +56,9 @@ public class Player : MonoBehaviour
 
     void CameraMovement()
     {
-        camera.transform.position = transform.position - offset * zoom; // moves camera
-        camera.transform.LookAt(transform.position + Vector3.up * pitch); // aims camera at player
-        camera.transform.RotateAround(transform.position, Vector3.up, yaw); // rotates camera
+        cam.transform.position = transform.position - offset * zoom; // moves camera
+        cam.transform.LookAt(transform.position + Vector3.up * pitch); // aims camera at player
+        cam.transform.RotateAround(transform.position, Vector3.up, yaw); // rotates camera
     }
 
     Vector3 GetMoveInput()
@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
 
     void CharacterMovement()
     {
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition); // gets ray based on mouse position on screen
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition); // gets ray based on mouse position on screen
 
         if (Physics.Raycast(ray, out RaycastHit hit, 1000, groundMask)) // if raycast is successful
         {

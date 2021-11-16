@@ -3,9 +3,11 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
+    [Header("Characteristics")]
     public bool isPlayer = false;
     public bool isObstacle = false;
     public int maxHealth;
+
     int currentHealth;
     GameManager manager;
     
@@ -30,7 +32,7 @@ public class Health : MonoBehaviour
         if (currentHealth > maxHealth)
             currentHealth = maxHealth; // clamp to max health
 
-        if (OnHealthChanged != null) // trigger event
+        if (OnHealthChanged != null && isPlayer) // trigger event
             OnHealthChanged.Invoke(maxHealth, currentHealth);
     }
 
@@ -44,7 +46,7 @@ public class Health : MonoBehaviour
             Die();
         }
 
-        if (OnHealthChanged != null) // trigger event
+        if (OnHealthChanged != null && isPlayer) // trigger event
             OnHealthChanged.Invoke(maxHealth, currentHealth);
     }
 
@@ -55,9 +57,15 @@ public class Health : MonoBehaviour
             if (onKill != null && !isObstacle) // trigger killcount delegate
             {
                 // spawn giftbox on death
-                if (manager.killcount >= manager.weaponUnlocks[1] && Random.Range(1, 10) <= manager.GiftboxFrequency) // chance of spawning
+                if (manager.killcount >= manager.weaponUnlocks[1] && Random.Range(1, 100) <= manager.GiftboxFrequency) // chance of spawning
                     Instantiate(GameManager.instance.giftbox, transform.position, Quaternion.identity, GameManager.instance.GiftboxesParent);
+
                 onKill.Invoke();
+            }
+
+            if (TryGetComponent(out Barrel barrel))
+            {
+                barrel.Explode();
             }
 
             GameObject.Destroy(this.gameObject); // destroy gameobject
