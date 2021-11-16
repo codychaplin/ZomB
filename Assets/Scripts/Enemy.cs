@@ -47,7 +47,6 @@ public class Enemy : MonoBehaviour
     {
         if (Time.time >= attackDelay) // if can attack
         {
-            Debug.Log("attacking");
             if (playerHealth != null)
                 playerHealth.TakeDamage(attackDamage); // deal damage
 

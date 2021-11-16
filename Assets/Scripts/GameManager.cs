@@ -23,14 +23,20 @@ public class GameManager : MonoBehaviour
     [Header("Enemy Settings")]
     public GameObject enemyPrefab;
     public Transform enemiesParent; // parent for spawned enemies
-    public int enemyCount;
+    [Range(0,5)]
+    public int startingWave = 0;
     public bool spawnEnemies;
     public Transform[] spawnpoints; // spawnpoints on map
     [Header("Weapon/Obstacle Settings")]
     public Transform obstaclesParent;
     public List<Weapon> weapons; // list of weapons in game
 
+    public bool isPaused { get; private set; }
+
+    int wave { get; set; }
+    int enemyCount { get; set; }
     public int killcount { get; private set; }
+    int[] enemiesInWave = new int[] { 4, 8, 16, 32, 48, 64 };
     public readonly int[] weaponUnlocks = new int[] { 0, 2, 4, 6 }; // killcount unlocks
 
     Inventory inventory;
@@ -38,11 +44,26 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isPaused = false;
         inventory = Inventory.instance;
         Health.onKill += OnKill; // subscribe to OnKill delegate
-        
-        if (spawnEnemies)
-            SpawnEnemies(enemyCount);
+
+        wave = startingWave;
+        enemyCount = 0;
+        StartCoroutine(SpawnWave(startingWave)); // spawns enemies in waves using 
+        wave++;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            PauseGame();
+    }
+
+    void PauseGame()
+    {
+        Time.timeScale = isPaused ? 1 : 0;
+        isPaused = !isPaused;
     }
 
     void OnKill()
@@ -57,10 +78,20 @@ public class GameManager : MonoBehaviour
             inventory.AddWeapon(weapons[3], 3); // add RPG
     }
 
-    void SpawnEnemies(int count)
+    IEnumerator SpawnWave(int wave)
     {
-        for (int i = 0; i < count; i++)
+        while (enemyCount < enemiesInWave[wave])
+        {
             foreach (Transform spawn in spawnpoints)
+            {
                 Instantiate(enemyPrefab, spawn.position, Quaternion.identity, enemiesParent);
+                enemyCount++;
+                if (enemyCount >= enemiesInWave[wave]) break;
+
+                yield return new WaitForSeconds(0.5f);
+            }
+
+            yield return new WaitForSeconds(2f);
+        }
     }
 }

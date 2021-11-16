@@ -32,17 +32,23 @@ public class Player : MonoBehaviour
     float pitch = 1.25f;
     float zoom = 3f;
     float yaw = 100f;
+
+    GameManager manager;
     Vector3 characterVelocity;
 
     // Start is called before the first frame update
     void Start()
     {
+        manager = GameManager.instance;
         controller = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (manager.isPaused) // if paused, don't allow movement
+            return;
+
         CharacterMovement();
         CameraRotate();
         CameraMovement();
