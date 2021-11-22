@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     [Header("Weapon/Obstacle Settings")]
     public Transform obstaclesParent;
     public List<Weapon> weapons; // list of weapons in game
+    public List<Obstacle> obstacles; // list of obstacles in game
 
     public bool isPaused { get; private set; }
 
@@ -50,7 +51,9 @@ public class GameManager : MonoBehaviour
 
         wave = startingWave;
         enemyCount = 0;
-        StartCoroutine(SpawnWave(startingWave)); // spawns enemies in waves using 
+
+        if (spawnEnemies)
+            StartCoroutine(SpawnWave(startingWave)); // spawns enemies in waves using 
         wave++;
     }
 
@@ -80,6 +83,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnWave(int wave)
     {
+        yield return new WaitForSeconds(2f);
+
         while (enemyCount < enemiesInWave[wave])
         {
             foreach (Transform spawn in spawnpoints)

@@ -14,14 +14,19 @@ public class Inventory : MonoBehaviour
 
     // weapon info
     const int NUM_WEAPONS = 4;
-    public Weapon[] weaponInventory = new Weapon[NUM_WEAPONS];
+    Weapon[] weaponInventory = new Weapon[NUM_WEAPONS];
     public Weapon currentWeapon { get; private set; }
     int currentWeaponIndex { get; set; }
+    int numWeaponsUnlocked { get; set; }
 
     // obstacle info
-    public List<Obstacle> obstacleInventory;
+    const int NUM_OBSTACLES = 2;
+    Obstacle[] obstacleInventory = new Obstacle[NUM_OBSTACLES];
     public Obstacle currentObstacle { get; private set; }
     int currentObstacleIndex { get; set; }
+    int numObstaclesUnlocked { get; set; }
+
+    int currentIndex { get; set; }
 
     public delegate void OnUpdateUI(string name, int ammo, bool hasUnlimitedAmmo);
     public OnUpdateUI onUpdateUI; // inventory event
@@ -29,17 +34,18 @@ public class Inventory : MonoBehaviour
     Player player { get; set; }
     GameManager manager { get; set; }
 
-    public int numWeaponsUnlocked { get; private set; }
-    public int numObstaclesUnlocked { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
+        // caches singletons
         player = Player.instance;
         manager = GameManager.instance;
 
         numWeaponsUnlocked = 0;
         AddWeapon(manager.weapons[0], 0); // adds pistol to inventory
+        AddObstacle(manager.obstacles[0], 0); // adds barricade to inventory
+        AddObstacle(manager.obstacles[1], 1); // adds barrel to inventory
 
         if (weaponInventory[0] != null)
             SwitchWeapon(0); // switch to weapon in first index
@@ -50,7 +56,7 @@ public class Inventory : MonoBehaviour
 
         foreach (Obstacle ob in obstacleInventory)
             if (ob != null)
-                ob.count = 20; // set count to each obstacle in inventory to 0
+                ob.Init();
     }
 
     // Update is called once per frame
@@ -69,15 +75,40 @@ public class Inventory : MonoBehaviour
             SwitchObstacle(0); // obstacle slot 1
         if (Input.GetKeyDown(KeyCode.Alpha6))
             SwitchObstacle(1); // obstacle slot 2
-
+            
+            
         if (Input.GetButtonDown("Fire") || Input.GetButton("Fire")) // shoot current weapon
             currentWeapon.Shoot();
 
         if (Input.GetKeyDown(KeyCode.R)) // reloads weapon
             currentWeapon.Reload();
 
-        if (Input.GetKeyDown(KeyCode.E)) // places obstacle
-            PlaceObstacle(currentObstacle);
+        if (Input.GetKeyDown(KeyCode.Space)) // places obstacle
+            PlaceObstacle();
+    }
+
+    public void GiftAmmo()
+    {
+        if (Random.Range(1, 100) <= manager.GiftboxAmmoFrequency) // adds weapon ammo
+        {
+            int rand = Random.Range(1, numWeaponsUnlocked); // random unlocked weapon in inv
+            Weapon randWeapon = weaponInventory[rand];
+            if (randWeapon != null)
+            {
+                int amount = Random.Range(randWeapon.maxAmmo / 8, randWeapon.maxAmmo / 2);
+                randWeapon.AddAmmo(amount);
+            }
+        }
+        else // adds obstacles
+        {
+            int rand = Random.Range(0, numObstaclesUnlocked); // random unlocked obstacle in inv
+            Obstacle randObstacle = obstacleInventory[rand];
+            if (randObstacle != null)
+            {
+                int amount = Random.Range(1, 10);
+                randObstacle.Add(amount);
+            }
+        }
     }
 
     public void AddWeapon(Weapon weapon, int index)
@@ -102,6 +133,13 @@ public class Inventory : MonoBehaviour
             onUpdateUI.Invoke(currentWeapon.weaponName, currentWeapon.currentAmmo, currentWeapon.unlimitedAmmo); // trigger event
     }
 
+    void AddObstacle(Obstacle obstacle, int index)
+    {
+        Obstacle newObstacle = Instantiate(obstacle);
+        numObstaclesUnlocked++; // unlocks new obstacle
+        obstacleInventory[index] = newObstacle; // adds obstacle to inventory
+    }
+
     void SwitchObstacle(int index)
     {
         currentObstacleIndex = index; // updates current obstacle index
@@ -111,15 +149,15 @@ public class Inventory : MonoBehaviour
             onItemChanged.Invoke(); // trigger event*/
     }
 
-    void PlaceObstacle(Obstacle obstacle)
+    void PlaceObstacle()
     {
         if (currentObstacle != null)
         {
             if (currentObstacle.count > 0)
             {
-                currentObstacle.count--;
+                currentObstacle.Place();
                 Vector3 pos = player.GetTileInfrontOfPlayer();
-                Instantiate(obstacle.prefab, pos, Quaternion.identity, manager.obstaclesParent);
+                Instantiate(currentObstacle.prefab, pos, Quaternion.identity, manager.obstaclesParent);
             }
             else
                 Debug.Log("Out of obstacle");
