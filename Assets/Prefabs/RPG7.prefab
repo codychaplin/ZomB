@@ -178,6 +178,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f276c4b4204f647ab0c52d0722f4cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: RPG
+  unlimitedAmmo: 0
   muzzle: {fileID: 776758602626375312}
   weaponName: RPG
   maxAmmo: 4

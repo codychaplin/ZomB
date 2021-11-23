@@ -1,22 +1,19 @@
 ﻿using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class Weapon : InvObj
 {
-    [Header("References")]
-    public Transform muzzle;
-    [Header("Weapon Properties")]
-    public string weaponName;
     public int maxAmmo;
-    public bool unlimitedAmmo = false;
     public int damage;
     public int knockback;
-    public bool hasBlastRadius = false;
     public float fireRate;
+    public bool hasBlastRadius = false;
 
-    public int currentAmmo { get; private set; }
+    [Header("References")]
+    public Transform muzzle;
+
     float nextShot;
 
-    public void InitializeWeapon()
+    public void Init()
     {
         currentAmmo = maxAmmo; // ammo is set to max capacity
     }
@@ -60,10 +57,10 @@ public class Weapon : MonoBehaviour
                 if (!unlimitedAmmo)
                     currentAmmo--; // decrement ammo
 
-                Inventory.instance.onUpdateUI.Invoke(weaponName, currentAmmo, unlimitedAmmo);
+                Inventory.instance.onUpdateUI.Invoke(name, currentAmmo, unlimitedAmmo);
             }
             else
-                Debug.Log(weaponName + ": Out of ammo");
+                Debug.Log(name + ": Out of ammo");
         }
     }
 
@@ -79,12 +76,8 @@ public class Weapon : MonoBehaviour
         if (currentAmmo > maxAmmo)
             currentAmmo = maxAmmo;
 
-        if (this == Inventory.instance.currentWeapon)
-            Inventory.instance.onUpdateUI.Invoke(weaponName, currentAmmo, unlimitedAmmo);
-    }
-
-    public void ShowWeapon(bool show)
-    {
-        gameObject.SetActive(show); // enable/disable gameObject
+        Inventory inventory = Inventory.instance;
+        if (inventory.currentWeapon == this)
+            inventory.onUpdateUI.Invoke(name, currentAmmo, unlimitedAmmo);
     }
 }

@@ -1,25 +1,27 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "Obstacle", menuName = "Obstacle")]
-public class Obstacle : ScriptableObject
+public class Obstacle : InvObj
 {
     public Type type;
-    public int count { get; private set; }
     public GameObject prefab;
 
     public void Init()
     {
-        count = 20;
+        currentAmmo = 20;
     }
 
     public void Add(int amount)
     {
-        count += amount;
+        currentAmmo += amount;
+        Inventory inventory = Inventory.instance;
+        if (inventory.currentObstacle == this)
+            inventory.onUpdateUI.Invoke(name, currentAmmo, unlimitedAmmo);
     }
 
     public void Place()
     {
-        count--;
+        currentAmmo--;
+        Inventory.instance.onUpdateUI.Invoke(name, currentAmmo, unlimitedAmmo);
     }
 }
 

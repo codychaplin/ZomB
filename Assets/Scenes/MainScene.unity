@@ -727,8 +727,8 @@ MonoBehaviour:
   - {fileID: 7750625067647832597, guid: 689946d975a0e55449b1e7ae41933e73, type: 3}
   - {fileID: -8193774621336281115, guid: 02baef62b1bfedf40bb369fb7542b9e7, type: 3}
   obstacles:
-  - {fileID: 11400000, guid: 47db446e712d0a84da6da7764bd006de, type: 2}
-  - {fileID: 11400000, guid: 95ad5500ec8d89b46b531cb7f815dfa6, type: 2}
+  - {fileID: -5370870993323765672, guid: 14bf51d92c5d35746b8afc411bb580f9, type: 3}
+  - {fileID: -505737831640780865, guid: 23df436f56cf48f469b9979859785243, type: 3}
 --- !u!4 &577937348
 Transform:
   m_ObjectHideFlags: 0
@@ -2965,6 +2965,10 @@ PrefabInstance:
     - target: {fileID: 3784413123051447827, guid: 96595aaea49b28e40b57895aaf631be9, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4054794918291162978, guid: 96595aaea49b28e40b57895aaf631be9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4054794918291162979, guid: 96595aaea49b28e40b57895aaf631be9, type: 3}
       propertyPath: m_Name

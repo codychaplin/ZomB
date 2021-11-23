@@ -13,7 +13,7 @@ public class OverheadUI : MonoBehaviour
     Transform cam; // main camera
     GameObject canvas; // worldspace canvas
     Image healthSlider; // UI image
-    Text weaponText; // weapon info
+    Text objectText; // weapon info
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +23,7 @@ public class OverheadUI : MonoBehaviour
         healthbar = Instantiate(healthbarPrefab, canvas.transform).transform; // healthbar prefab
         healthSlider = healthbar.GetChild(0).GetComponent<Image>(); // image within healthbar
         weaponInfo = Instantiate(WeaponInfoPrefab, canvas.transform).transform; // healthbar prefab
-        weaponText = weaponInfo.GetComponent<Text>();
+        objectText = weaponInfo.GetComponent<Text>();
 
         // subscribes to player's OnHealthChanged event
         GetComponent<Health>().OnHealthChanged.AddListener(OnHealthChanged);
@@ -58,6 +58,6 @@ public class OverheadUI : MonoBehaviour
 
     void OnItemChanged(string name, int ammo, bool hasUnlimitedAmmo)
     {
-        weaponText.text = hasUnlimitedAmmo ? name : name + ": " + ammo;
+        objectText.text = hasUnlimitedAmmo ? name : name + ": " + ammo;
     }
 }
