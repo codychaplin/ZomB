@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -8087781275065848609}
   - component: {fileID: 4123706025726114577}
   - component: {fileID: 8142583416875488998}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: barricade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.125, y: 0.5, z: 0.125}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7040758871427537516}
   - component: {fileID: 449920848021003738}
   - component: {fileID: 31894141150023024}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Barricade
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7713639459538116470}
   - component: {fileID: 3069331994713439997}
   - component: {fileID: 7943610652453326976}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 3298307573817153372}
   - component: {fileID: -1805755556708995969}
   - component: {fileID: -6356857231849315905}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.25, y: 0.625, z: 0.25}
+  m_Extents: {x: 0.125, y: 0.625, z: 0.125}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1

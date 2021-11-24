@@ -73,6 +73,12 @@ public class Inventory : MonoBehaviour
                 PlaceObstacle();
     }
 
+    bool IsTrue()
+    {
+        Debug.Log("called");
+        return true;
+    }
+
     void SwitchSlot(int i)
     {
         if (currentObject != null) // disable previous object

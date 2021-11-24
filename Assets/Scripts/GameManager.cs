@@ -73,12 +73,12 @@ public class GameManager : MonoBehaviour
     {
         killcount++;
 
-       /* if (killcount == weaponUnlocks[1])
+        if (killcount == weaponUnlocks[1])
             inventory.AddWeapon(weapons[1], 1); // add shotgun
         else if (killcount == weaponUnlocks[2])
             inventory.AddWeapon(weapons[2], 2); // add M4
         else if (killcount == weaponUnlocks[3])
-            inventory.AddWeapon(weapons[3], 3); // add RPG*/
+            inventory.AddWeapon(weapons[3], 3); // add RPG
     }
 
     IEnumerator SpawnWave(int wave)
