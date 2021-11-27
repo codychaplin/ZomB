@@ -41,8 +41,7 @@ public class Weapon : InvObj
                         if (colliders.Length > 0)
                             foreach (Collider col in colliders)
                             {
-                                Health health = col.GetComponent<Health>();
-                                if (health != null && health != enemyHealth) // if has health component and not enemyHealth
+                                if (col.TryGetComponent(out Health health) && health != enemyHealth) // if has health component and not enemyHealth
                                 {
                                     health.TakeDamage(damage); // apply damage
                                     Vector3 direction = col.transform.position - hit.point; // get direction from original hit
@@ -51,8 +50,7 @@ public class Weapon : InvObj
                             }
                     }
                 }
-
-                //Debug.Log(weaponName + ": Bang");
+                
                 nextShot = Time.time + fireRate;
                 if (!unlimitedAmmo)
                     currentAmmo--; // decrement ammo
@@ -66,7 +64,6 @@ public class Weapon : InvObj
 
     public void Reload()
     {
-        Debug.Log("Reloading");
         currentAmmo = maxAmmo;
     }
 

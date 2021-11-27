@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
-        while (enemyCount < enemiesInWave[wave])
+        while (enemyCount < enemiesInWave[wave])    
         {
             foreach (Transform spawn in spawnpoints)
             {
