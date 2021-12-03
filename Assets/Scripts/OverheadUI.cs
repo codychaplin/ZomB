@@ -7,11 +7,11 @@ public class OverheadUI : MonoBehaviour
     public Transform target; // player overheadParent
     public GameObject healthbarPrefab; // healthbar
     public GameObject WeaponInfoPrefab; // weapon/ammo info
+    public Canvas canvas; // worldspace canvas
 
     Transform healthbar;
     Transform weaponInfo;
     Transform cam; // main camera
-    GameObject canvas; // worldspace canvas
     Image healthSlider; // UI image
     Text objectText; // weapon info
 
@@ -19,7 +19,6 @@ public class OverheadUI : MonoBehaviour
     void Start()
     {
         cam = Camera.main.transform; // reference to camera
-        canvas = FindObjectOfType<Canvas>().gameObject; // reference to worldspace canvas
         healthbar = Instantiate(healthbarPrefab, canvas.transform).transform; // healthbar prefab
         healthSlider = healthbar.GetChild(0).GetComponent<Image>(); // image within healthbar
         weaponInfo = Instantiate(WeaponInfoPrefab, canvas.transform).transform; // healthbar prefab

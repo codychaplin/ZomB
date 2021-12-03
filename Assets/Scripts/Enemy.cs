@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (agent.hasPath)
+        if (agent.hasPath) // debug
             DrawPath();
         
         // if can't find path to player, set target to obstacle in the way

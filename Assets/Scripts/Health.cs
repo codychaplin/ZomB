@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
     [Header("Characteristics")]
     public bool isPlayer = false;
     public bool isObstacle = false;
+    public bool isInvincible = false; // debug
     public int maxHealth;
 
     int currentHealth;
@@ -18,6 +19,8 @@ public class Health : MonoBehaviour
 
     public delegate void OnKillDelegate();
     public static OnKillDelegate onKill; // onKill static delegate
+    public delegate void OnPlayerDeathDelegate();
+    public static OnPlayerDeathDelegate onPlayerDeath; // onPlayerDeath static delegate
 
     private void Start()
     {
@@ -58,7 +61,7 @@ public class Health : MonoBehaviour
             {
                 // spawn giftbox on death
                 if (manager.killcount >= manager.weaponUnlocks[1] && Random.Range(1, 100) <= manager.GiftboxFrequency) // chance of spawning
-                    Instantiate(GameManager.instance.giftbox, transform.position, Quaternion.identity, GameManager.instance.GiftboxesParent);
+                    Instantiate(manager.giftbox, transform.position, Quaternion.identity, manager.GiftboxesParent);
 
                 onKill.Invoke();
             }
@@ -71,6 +74,15 @@ public class Health : MonoBehaviour
             GameObject.Destroy(this.gameObject); // destroy gameobject
         }
         else
-            Debug.Log("You died");
+        {
+            if (isInvincible)
+            {
+                Heal(maxHealth);
+                if (OnHealthChanged != null) // trigger event
+                    OnHealthChanged.Invoke(maxHealth, currentHealth);
+            }
+            else
+                onPlayerDeath.Invoke();
+        }
     }
 }

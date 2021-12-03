@@ -183,6 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayer: 0
   isObstacle: 0
+  isInvincible: 0
   maxHealth: 20
   OnHealthChanged:
     m_PersistentCalls:

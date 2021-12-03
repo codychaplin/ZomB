@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    [Header("References")]
+    public GameObject deathScreen;
+    public Text stats;
     [Header("Giftbox Settings")]
     public GameObject giftbox; // giftbox prefab
     public Transform GiftboxesParent;
@@ -46,8 +50,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         isPaused = false;
+        deathScreen.SetActive(false);
         inventory = Inventory.instance;
         Health.onKill += OnKill; // subscribe to OnKill delegate
+        Health.onPlayerDeath += OnPlayerDeath; // subscribe to OnDeath delegate
 
         wave = startingWave;
         enemyCount = 0;
@@ -59,7 +65,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !deathScreen.activeSelf)
             PauseGame();
     }
 
@@ -81,11 +87,19 @@ public class GameManager : MonoBehaviour
             inventory.AddWeapon(weapons[3], 3); // add RPG
     }
 
+    void OnPlayerDeath()
+    {
+        PauseGame();
+
+        stats.text = "Killcount: " + killcount;
+        deathScreen.SetActive(true);
+    }
+
     IEnumerator SpawnWave(int wave)
     {
         yield return new WaitForSeconds(2f);
 
-        while (enemyCount < enemiesInWave[wave])    
+        while (enemyCount < enemiesInWave[wave])
         {
             foreach (Transform spawn in spawnpoints)
             {
