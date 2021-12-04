@@ -23,6 +23,9 @@ public class Inventory : MonoBehaviour
     public delegate void OnUpdateUI(string name, int ammo, bool hasUnlimitedAmmo);
     public OnUpdateUI onUpdateUI; // inventory event
 
+    public delegate void OnSwitch(int i);
+    public OnSwitch onSwitch; // animation event
+
     Player player { get; set; }
     GameManager manager { get; set; }
 
@@ -34,6 +37,9 @@ public class Inventory : MonoBehaviour
         manager = GameManager.instance;
         
         AddWeapon(manager.weapons[0], 0); // adds pistol to inventory
+        //AddWeapon(manager.weapons[1], 1); // adds pistol to inventory
+        //AddWeapon(manager.weapons[2], 2); // adds pistol to inventory
+        //AddWeapon(manager.weapons[3], 3); // adds pistol to inventory
         AddObstacle(manager.obstacles[0], 4); // adds barricade to inventory
         AddObstacle(manager.obstacles[1], 5); // adds barrel to inventory
         
@@ -116,8 +122,11 @@ public class Inventory : MonoBehaviour
             currentWeapon = null;
         }
 
-        if (onUpdateUI != null) // trigger event
+        if (onUpdateUI != null) // trigger UI update event
             onUpdateUI.Invoke(currentObject.name, currentObject.currentAmmo, currentObject.unlimitedAmmo);
+
+        if (onSwitch != null) // trigger animation event
+            onSwitch.Invoke(currentIndex);
     }
 
     public void AddWeapon(Weapon weapon, int index)

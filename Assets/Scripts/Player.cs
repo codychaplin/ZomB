@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [Header("References")]
     public Camera cam; // references main camera
     public Transform weaponParent; // weapon slot
+    public Transform handPosition; // hand position
     public LayerMask groundMask; // ground mask
     CharacterController controller; // references player's characterController
 
@@ -52,6 +53,8 @@ public class Player : MonoBehaviour
         CharacterMovement();
         CameraRotate();
         CameraMovement();
+
+        weaponParent.position = handPosition.position;
     }
 
     void CameraRotate()

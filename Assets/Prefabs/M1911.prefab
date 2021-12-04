@@ -217,7 +217,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1694449805434718}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.101, z: 0.107}
+  m_LocalPosition: {x: 0, y: 0.02, z: 0.088}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4314784194266678}
@@ -239,13 +239,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Pistol
   unlimitedAmmo: 1
-  muzzle: {fileID: 4314784194266678}
-  weaponName: Pistol
   maxAmmo: 1
   damage: 5
   knockback: 2
-  hasBlastRadius: 0
   fireRate: 0.3
+  hasBlastRadius: 0
+  muzzle: {fileID: 4314784194266678}
 --- !u!1 &1748277932983872
 GameObject:
   m_ObjectHideFlags: 0
